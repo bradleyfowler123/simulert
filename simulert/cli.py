@@ -70,4 +70,4 @@ def cli(
 @click.argument("method", required=True)
 def run(name, method):
     with alerter.simulation_alert(name):
-        runpy.run_path(os.path.join(os.getcwd(), method))
+        runpy.run_path(Path.cwd() / method)
