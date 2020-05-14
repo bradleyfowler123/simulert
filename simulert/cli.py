@@ -1,5 +1,6 @@
 import runpy
 from pathlib import Path
+import shlex
 
 import click
 
@@ -32,6 +33,9 @@ alerter = getAlerter()
 @click.option(
     "--emailRecipient", help="comma-separated receiver name and email address"
 )
+@click.option(
+    "-a", "--fileArguments", help="command line arguments to pass to the file", default="",
+)
 def cli(
     filename,
     name,
@@ -44,6 +48,7 @@ def cli(
     emailauthentication,
     emailsender,
     emailrecipient,
+    filearguments,
 ):
     if not slack and not email:
         print(
@@ -60,4 +65,4 @@ def cli(
         alerter.add_handler(emailer)
 
     with alerter.simulation_alert(name):
-        runpy.run_path(Path.cwd() / filename)
+        runpy.run_path(Path.cwd() / filename, init_globals={"cli_args": shlex.split(filearguments)})
