@@ -60,4 +60,4 @@ def cli(
         alerter.add_handler(emailer)
 
     with alerter.simulation_alert(name):
-        runpy.run_path(Path.cwd() / filename)
+        runpy.run_path(str(Path.cwd() / filename))
