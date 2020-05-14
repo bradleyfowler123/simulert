@@ -10,7 +10,7 @@ alerter = getAlerter()
 
 
 @click.command()
-@click.argument("method", required=True)
+@click.argument("filename", required=True)
 @click.option("-n", "--name", help="simulation name")
 @click.option("-e", "--email", help="attach email handler", is_flag=True)
 @click.option("-s", "--slack", help="attach slack handler", is_flag=True)
@@ -33,7 +33,7 @@ alerter = getAlerter()
     "--emailRecipient", help="comma-separated receiver name and email address"
 )
 def cli(
-    method,
+    filename,
     name,
     email,
     slack,
@@ -60,4 +60,4 @@ def cli(
         alerter.add_handler(emailer)
 
     with alerter.simulation_alert(name):
-        runpy.run_path(Path.cwd() / method)
+        runpy.run_path(Path.cwd() / filename)
