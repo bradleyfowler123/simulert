@@ -65,4 +65,4 @@ def cli(
         alerter.add_handler(emailer)
 
     with alerter.simulation_alert(name):
-        runpy.run_path(Path.cwd() / filename, init_globals={"cli_args": shlex.split(filearguments)})
+        runpy.run_path(str(Path.cwd() / filename), init_globals={"cli_args": shlex.split(filearguments)})
